@@ -11,6 +11,8 @@ var express = require('express')
   , LocalStrategy = require('passport-local').Strategy
   , passportHelper = require('./passport_helper');
 
+var MongoStore = require('connect-mongo')(express);
+
 passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
@@ -45,7 +47,7 @@ app.configure(function() {
   app.use(express.cookieParser());
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.session({ secret: 'keyboard cat' }));
+  app.use(express.session({ secret: 'keyboard cat', store: new MongoStore({ db: 'node-mongo-battle-answer' }) }));
   app.use(flash());
   app.use(passport.initialize());
   app.use(passport.session());
