@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= title
+  div
+    if (user)
+      p Username: #{user.username}
+      p Email: #{user.email}
+

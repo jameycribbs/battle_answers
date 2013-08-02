@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  div.starter-template
+    table.table.table-bordered
+      thead
+        tr
+          th Question
+          th Answer
+          th Tags
+          th Edit
+          th Delete
+      tbody
+        - each answer in battleAnswers
+          tr
+            td= answer.question
+            td= answer.answer
+            td= answer.tags
+            td
+              form( method='get', action='/answer/:id/edit') 
+                input(name='_id', type='hidden', value=answer._id.toHexString()) 
+                input(id='edit', value='Edit', type='submit')
+            td
+              form( method='post', action='/answer/:id/delete') 
+                input(name='_id', type='hidden', value=answer._id.toHexString()) 
+                input(id='delete', value='Delete', type='submit')
+
+    a(href="/answer/new", class="btn btn-primary") Add an Answer

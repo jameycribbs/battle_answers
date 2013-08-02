@@ -1,0 +1,39 @@
+doctype 5
+html(lang='en')
+  head
+    title= title
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/starter-template.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    div(class='navbar navbar-inverse navbar-fixed-top')
+      div.container
+        button(type='button', class='navbar-toggle', data-toggle='collapse', data-target='.nav-collapse')
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand(href='/')!= 'Battle Answers'
+        div(class='nav-collapse collapse')
+          ul(class='nav navbar-nav')
+            li(class='active')
+              a(href='/')!= 'Home'
+            li
+              a(href='/search/new')!= 'Search for Answers'
+            if (user)
+              li
+                a(href='/answers')!= 'Maintain Answers'
+              li
+                a(href='/logout')!= 'Log Out'
+            else
+              li
+                a(href='/login')!= 'Login'
+
+    div.container
+      block content
+
+    script(src='http://code.jquery.com/jquery.js')
+    script(src='/javascripts/bootstrap.min.js')

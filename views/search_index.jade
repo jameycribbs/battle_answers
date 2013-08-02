@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  div.starter-template
+    div.well!= '<b>Keywords Searched For: </b>' + searchKeywords
+    div(class='accordion', id='accordion1')
+      - var collapseIn = ' in'
+      - each answer in searchResults
+        div.accordion-group
+          div.accordion-heading
+            a(class='accordion-toggle', data-toggle='collapse', data-parent='#accordion1', href='#collapse' + answer._id)
+              != '<b>Question: </b>' + answer.question
+          div(id='collapse' + answer._id, class='accordion-body collapse' + collapseIn)
+            div.accordion-inner
+              p!= '<b>Answer: </b>' + answer.answer
+              p!= '<small><b>Tags: </b><em>' + answer.tags + '</em></small>'
+        - collapseIn = ''
