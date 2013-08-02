@@ -1,5 +1,5 @@
 var users = [
-  { id: 1, username: 'jameycribbs', password: '11111111', email: 'jamey.cribbs@gmail.com' }
+  { id: 1, username: 'jameycribbs', password: process.env.BA_PW, email: 'jamey.cribbs@gmail.com' }
 ];
 
 exports.findUserById = function(id, fn) {
