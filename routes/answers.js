@@ -31,6 +31,12 @@ exports.edit = function(req, res) {
   battleAnswerProvider.findById(req.param('_id'), function(error, answer) {
     tag_str = '';
 
+    console.log('---------------------');
+    console.log(answer._id);
+    console.log(answer.question);
+    console.log(answer.answer);
+    console.log(answer.tags);
+
     if (answer.tags !== undefined) {
       for (var i =0;i< answer.tags.length;i++) {
         tag = answer.tags[i];
@@ -45,7 +51,7 @@ exports.edit = function(req, res) {
     res.render('answers_edit', {
       user: req.user,
       title: 'Edit Answer',
-      answer: answer,
+      edit_answer: answer,
       tag_str: tag_str
     });
   });
