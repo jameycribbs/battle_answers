@@ -14,4 +14,6 @@ block content
     p
       div.alert.alert-block.alert-info
         h4 Available Keywords
-        p!= allTags
+        ul.list-inline
+          - each tag in allTags
+            li= tag
