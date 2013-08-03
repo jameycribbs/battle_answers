@@ -52,6 +52,27 @@ BattleAnswerProvider.prototype.findTags = function(queryStr, callback) {
   });
 };
 
+BattleAnswerProvider.prototype.getAllTags = function(callback) {
+  this.getCollection(function(error, answerCollection) {
+    if (error) {
+      callback(error);
+    } else {
+      answerCollection.find().toArray(function(error, results) {
+        if (error) {
+          callback(error);
+        } else {
+          allTags = new Array();
+          for (rec in results) {
+            console.log(rec.question);
+            allTags = allTags.concat(rec.tags);
+          }
+          callback(null, allTags);
+        }
+      });
+    }
+  });
+};
+
 BattleAnswerProvider.prototype.save = function(answers, callback) {
   this.getCollection(function(error, answerCollection) {
     if (error) {

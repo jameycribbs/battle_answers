@@ -4,9 +4,11 @@ block content
   div.starter-template
     div.alert.alert-block
       h4 Note
-      p You can enter multiple keywords, just separate them with a space.  To enter keywords that should be searched for together, like morale-check, put a hyphen in between them.  You can also use standard ASL abbreviations, like MF or SFF.
+      p You can enter multiple keywords, just separate them with a space.  To enter keywords that should be searched for together, like morale-check, put a hyphen in between them.  You can also use standard ASL abbreviations, like MF or SFF. Don't worry about entering keywords in upper or lower case.
 
     form.form-horizontal(method='post')
       div.form-group
         input(type='text', name='searchKeywords', id='editSearchKeywords', class='form-control', placeholder='Enter keywords to search for...')
       button(type='submit', class='btn btn-default') Search
+
+  div.well!= '<b>Available Tags: </b>' + allTags
