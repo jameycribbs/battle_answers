@@ -20,8 +20,8 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-//  userProvider.findById(id, function (err, user) {
-  passportHelper.findUserById(id, function (err, user) {
+  userProvider.findById(id, function (err, user) {
+//  passportHelper.findUserById(id, function (err, user) {
     done(err, user);
   });
 });
@@ -29,8 +29,8 @@ passport.deserializeUser(function(id, done) {
 passport.use(new LocalStrategy(
   function(username, password, done) {
     process.nextTick(function () {
-//      userProvider.findByUsername(username, function(err, user) {
-      passportHelper.findUserByUsername(username, function(err, user) {
+      userProvider.findByUsername(username, function(err, user) {
+//      passportHelper.findUserByUsername(username, function(err, user) {
         if (err) { return done(err); }
         if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
         if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
