@@ -14,4 +14,17 @@ block content
             div.accordion-inner
               p!= '<b>Answer: </b>' + answer.answer
               p!= '<small><b>Tags: </b><em>' + answer.tags + '</em></small>'
+              if (user)
+                if (user.roles.indexOf('rules-admin') != -1)
+                  form(method='get', action='/answers/:id/edit') 
+                    input(name='_id', type='hidden', value=answer._id.toHexString()) 
+                    input.btn.btn-small(value='Edit', type='submit')
+                  br
+                  form(method='post', action='/answers/:id/delete') 
+                    input(name='_id', type='hidden', value=answer._id.toHexString()) 
+                    input.btn.btn-small(value='Delete', type='submit')
         - collapseIn = ''
+
+    if (user)
+      if (user.roles.indexOf('rules-admin') != -1)
+        a.btn.btn-primary(href='/answers/new') Add an Answer

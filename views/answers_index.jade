@@ -19,10 +19,10 @@ block content
             td
               form( method='get', action='/answers/:id/edit') 
                 input(name='_id', type='hidden', value=answer._id.toHexString()) 
-                input(id='edit', value='Edit', type='submit')
+                input.btn.btn-small(value='Edit', type='submit')
             td
               form( method='post', action='/answers/:id/delete') 
                 input(name='_id', type='hidden', value=answer._id.toHexString()) 
-                input(id='delete', value='Delete', type='submit')
+                input.btn.btn-small(value='Delete', type='submit')
 
     a(href="/answers/new", class="btn btn-primary") Add an Answer
