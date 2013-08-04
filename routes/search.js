@@ -1,7 +1,7 @@
-var battleAnswerProvider = require('../battle_answer_provider').battleAnswerProvider;
+var answerProvider = require('../models/answer').answerProvider;
 
 exports.new = function(req, res) {
-  battleAnswerProvider.findAll(function(error, answers) {
+  answerProvider.findAll(function(error, answers) {
     var allTags = new Array();
 
     for (var i=0; i<answers.length; i++) { 
@@ -25,7 +25,7 @@ exports.new = function(req, res) {
 };
 
 exports.create = function(req, res) {
-  battleAnswerProvider.findTags(req.param('searchKeywords').toLowerCase(), function(error, answers) {
+  answerProvider.findTags(req.param('searchKeywords').toLowerCase(), function(error, answers) {
     res.render('search_index', {
       user: req.user,
       title: 'Search Results',

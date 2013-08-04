@@ -63,7 +63,6 @@ BattleAnswerProvider.prototype.getAllTags = function(callback) {
         } else {
           allTags = new Array();
           for (rec in results) {
-            console.log(rec.question);
             allTags = allTags.concat(rec.tags);
           }
           callback(null, allTags);

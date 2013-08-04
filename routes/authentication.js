@@ -1,5 +1,3 @@
-var battleAnswerProvider = require('../battle_answer_provider').battleAnswerProvider;
-
 exports.login = function(req, res){
   res.render('login', { 
     user: req.user, 

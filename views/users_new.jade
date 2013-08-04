@@ -1,0 +1,15 @@
+extend layout
+
+block content
+  div.starter-template
+    form(method='post')
+      div.form-group
+        label(for='editUsername') Username
+        input(type='text', name='username', id='editUsername')
+      div.form-group
+        label(for='editPassword') Password
+        input(type='text', name='password', id='editPassword')
+      div.form-group
+        label(for='editRoles') Roles
+        textarea.form-control(name='roles', rows=2, cols=50, id='editRoles')
+      button(type='submit', class='btn btn-default') Save

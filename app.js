@@ -1,11 +1,13 @@
 var express = require('express')
-  , routes = require('./routes')
+  , frontPageRoutes = require('./routes/index')
   , authenticationRoutes = require('./routes/authentication')
   , answerRoutes = require('./routes/answers')
   , searchRoutes = require('./routes/search')
+  , userRoutes = require('./routes/users')
   , http = require('http')
   , path = require('path')
-  , battleAnswerProvider = require('./battle_answer_provider').battleAnswerProvider
+  , answerProvider = require('./models/answer').answerProvider
+  , userProvider = require('./models/user').userProvider
   , passport = require('passport')
   , flash = require('connect-flash')
   , LocalStrategy = require('passport-local').Strategy
@@ -18,6 +20,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
+//  userProvider.findById(id, function (err, user) {
   passportHelper.findUserById(id, function (err, user) {
     done(err, user);
   });
@@ -26,6 +29,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new LocalStrategy(
   function(username, password, done) {
     process.nextTick(function () {
+//      userProvider.findByUsername(username, function(err, user) {
       passportHelper.findUserByUsername(username, function(err, user) {
         if (err) { return done(err); }
         if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
@@ -60,7 +64,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
+app.get('/', frontPageRoutes.index);
 
 app.get('/account', passportHelper.ensureAuthenticated, function(req, res){
   res.render('account', { user: req.user });
@@ -78,6 +82,13 @@ app.post('/answer/new', passportHelper.ensureAuthenticated, answerRoutes.create)
 app.get('/answer/:id/edit', passportHelper.ensureAuthenticated, answerRoutes.edit);
 app.post('/answer/:id/edit', passportHelper.ensureAuthenticated, answerRoutes.update);
 app.post('/answer/:id/delete', passportHelper.ensureAuthenticated, answerRoutes.delete);
+
+app.get('/users', passportHelper.ensureAuthenticated, userRoutes.index);
+app.get('/users/new', passportHelper.ensureAuthenticated, userRoutes.new);
+app.post('/users/new', passportHelper.ensureAuthenticated, userRoutes.create);
+app.get('/users/:id/edit', passportHelper.ensureAuthenticated, userRoutes.edit);
+app.post('/users/:id/edit', passportHelper.ensureAuthenticated, userRoutes.update);
+app.post('/users/:id/delete', passportHelper.ensureAuthenticated, userRoutes.delete);
 
 app.get('/search/new', searchRoutes.new);
 app.post('/search/new', searchRoutes.create);

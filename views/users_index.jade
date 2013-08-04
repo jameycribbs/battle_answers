@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  div.starter-template
+    table.table.table-bordered
+      thead
+        tr
+          th Username
+          th Roles
+          th Edit
+          th Delete
+      tbody
+        - each user in users
+          tr
+            td= user.username
+            td= user.roles
+            td
+              form( method='get', action='/users/:id/edit') 
+                input(name='_id', type='hidden', value=user._id.toHexString()) 
+                input(id='edit', value='Edit', type='submit')
+            td
+              form( method='post', action='/users/:id/delete') 
+                input(name='_id', type='hidden', value=user._id.toHexString()) 
+                input(id='delete', value='Delete', type='submit')
+
+    a(href="/users/new", class="btn btn-primary") Add a User
