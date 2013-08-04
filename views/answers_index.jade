@@ -17,12 +17,12 @@ block content
             td= answer.answer
             td= answer.tags
             td
-              form( method='get', action='/answer/:id/edit') 
+              form( method='get', action='/answers/:id/edit') 
                 input(name='_id', type='hidden', value=answer._id.toHexString()) 
                 input(id='edit', value='Edit', type='submit')
             td
-              form( method='post', action='/answer/:id/delete') 
+              form( method='post', action='/answers/:id/delete') 
                 input(name='_id', type='hidden', value=answer._id.toHexString()) 
                 input(id='delete', value='Delete', type='submit')
 
-    a(href="/answer/new", class="btn btn-primary") Add an Answer
+    a(href="/answers/new", class="btn btn-primary") Add an Answer

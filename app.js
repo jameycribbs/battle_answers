@@ -16,7 +16,7 @@ var express = require('express')
 var MongoStore = require('connect-mongo')(express);
 
 passport.serializeUser(function(user, done) {
-  done(null, user.id);
+  done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
@@ -77,11 +77,11 @@ app.post('/login', passport.authenticate('local', { failureRedirect: '/login', f
 app.get('/logout', authenticationRoutes.logout);
 
 app.get('/answers', passportHelper.ensureAuthenticated, answerRoutes.index);
-app.get('/answer/new', passportHelper.ensureAuthenticated, answerRoutes.new);
-app.post('/answer/new', passportHelper.ensureAuthenticated, answerRoutes.create);
-app.get('/answer/:id/edit', passportHelper.ensureAuthenticated, answerRoutes.edit);
-app.post('/answer/:id/edit', passportHelper.ensureAuthenticated, answerRoutes.update);
-app.post('/answer/:id/delete', passportHelper.ensureAuthenticated, answerRoutes.delete);
+app.get('/answers/new', passportHelper.ensureAuthenticated, answerRoutes.new);
+app.post('/answers/new', passportHelper.ensureAuthenticated, answerRoutes.create);
+app.get('/answers/:id/edit', passportHelper.ensureAuthenticated, answerRoutes.edit);
+app.post('/answers/:id/edit', passportHelper.ensureAuthenticated, answerRoutes.update);
+app.post('/answers/:id/delete', passportHelper.ensureAuthenticated, answerRoutes.delete);
 
 app.get('/users', passportHelper.ensureAuthenticated, userRoutes.index);
 app.get('/users/new', passportHelper.ensureAuthenticated, userRoutes.new);

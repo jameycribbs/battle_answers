@@ -28,12 +28,12 @@ exports.create = function(req, res) {
 };
 
 exports.edit = function(req, res) {
-  answerProvider.findById(req.param('_id'), function(error, answer) {
+  answerProvider.findById(req.param('_id'), function(error, rec) {
     tag_str = '';
 
-    if (answer.tags !== undefined) {
-      for (var i = 0; i < answer.tags.length;i++) {
-        tag = answer.tags[i];
+    if (rec.tags !== undefined) {
+      for (var i = 0; i < rec.tags.length;i++) {
+        tag = rec.tags[i];
         if (tag_str.length == 0) {
           tag_str = tag;
         } else {
@@ -45,7 +45,7 @@ exports.edit = function(req, res) {
     res.render('answers_edit', {
       user: req.user,
       title: 'Edit Answer',
-      edit_answer: answer,
+      edit_answer: rec,
       tag_str: tag_str
     });
   });
