@@ -1,68 +1,40 @@
-var answerProvider = require('../models/answer').answerProvider;
+var Answer = require('../models/answer.js');
 
 exports.index = function(req, res) {
-  answerProvider.findAll(function(error, answers) {
-    res.render('answers_index', {
-      user: req.user,
-      title: 'Battle Answers',
-      battleAnswers: answers
-    });
+  Answer.find(function(error, recs) { 
+    res.render('answers_index', { title: 'Battle Answers', answers: recs });
   });
 };
 
 exports.new = function(req, res) {
-  res.render('answers_new', {
-    user: req.user,
-    title: 'New Answer'
-  });
+  res.render('answers_new', { title: 'New Answer' });
 };
 
 exports.create = function(req, res) {
-  answerProvider.save({
-    question: req.param('question'),
-    answer: req.param('answer'),
-    tags: req.param('tags').toLowerCase().split(' ')
-  }, function(error, docs) {
+  Answer.create({ question: req.param('question'), answer: req.param('answer'), tags: req.param('tags') }, function (err, small) {
     res.redirect('/answers')
   });
 };
 
 exports.edit = function(req, res) {
-  answerProvider.findById(req.param('_id'), function(error, rec) {
-    tag_str = '';
-
-    if (rec.tags !== undefined) {
-      for (var i = 0; i < rec.tags.length;i++) {
-        tag = rec.tags[i];
-        if (tag_str.length == 0) {
-          tag_str = tag;
-        } else {
-          tag_str = tag_str + ' ' + tag;
-        }
-      }
-    }
-
+  Answer.findOne({ _id: req.param('_id') }, function(error, rec) { 
     res.render('answers_edit', {
       user: req.user,
       title: 'Edit Answer',
-      edit_answer: rec,
-      tag_str: tag_str
+      answer: rec
     });
   });
 };
 
 exports.update = function(req, res) {
-  answerProvider.update(req.param('_id'), {
-    question: req.param('question'),
-    answer: req.param('answer'),
-    tags: req.param('tags').toLowerCase().split(' ')
-  }, function(error, docs) {
-    res.redirect('/answers')
+  Answer.update({ _id: req.param('_id') }, { question: req.param('question'), answer: req.param('answer'), 
+   tags: req.param('tags').toLowerCase().split(' ') }, { multi: false }, function (err, numberAffected, raw) {
+    res.redirect('/answers');
   });
 };
 
 exports.delete = function(req, res) {
-  answerProvider.delete(req.param('_id'), function(error, docs) {
+  Answer.remove({ _id: req.param('_id') }, function (err) {
     res.redirect('/answers')
   });
 };

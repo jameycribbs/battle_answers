@@ -2,6 +2,8 @@ extend layout
 
 block content
   div.starter-template
+    if (message)
+      p= message
     form(method='post')
       div.form-group
         label(for='editAnswerQuestion') Question

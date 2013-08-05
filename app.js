@@ -6,6 +6,7 @@ var express = require('express')
   , userRoutes = require('./routes/users')
   , http = require('http')
   , path = require('path')
+  , mongoose = require('mongoose')
   , answerProvider = require('./models/answer').answerProvider
   , userProvider = require('./models/user').userProvider
   , passport = require('passport')
@@ -14,6 +15,8 @@ var express = require('express')
   , passportHelper = require('./passport_helper');
 
 var MongoStore = require('connect-mongo')(express);
+
+mongoose.connect('mongodb://localhost/node-mongo-battle-answer');
 
 passport.serializeUser(function(user, done) {
   done(null, user._id);
