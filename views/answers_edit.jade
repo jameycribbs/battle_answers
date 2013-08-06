@@ -3,17 +3,19 @@ extend layout
 block content
   div.starter-template
     form(method='post')
-      input(name='id', type='hidden', value=answer.id)
-      div.form-group
-        label(for='editAnswerQuestion') Question
-        textarea.form-control(name='question', rows=5, cols=50, id='editAnswerQuestion')
-          = answer.question
-      div.form-group
-        label(for='editAnswerAnswer') Answer
-        textarea.form-control(name='answer', rows=5, cols=50, id='editAnswerAnswer')
-          = answer.answer
-      div.form-group
-        label(for='editAnswerTags') Tags
-        textarea.form-control(name='tags', rows=2, cols=50, id='editAnswerTags')
-          = answer.tags
-      button(type='submit', class='btn btn-default') Update
+      fieldset
+        input(name='id', type='hidden', value=answer.id)
+        div.form-group
+          label(for='editAnswerQuestion') Question
+          textarea.form-control(name='question', rows=5, cols=50, id='editAnswerQuestion')
+            = answer.question
+        div.form-group
+          label(for='editAnswerAnswer') Answer
+          textarea.form-control(name='answer', rows=5, cols=50, id='editAnswerAnswer')
+            = answer.answer
+        div.form-group
+          label(for='editAnswerTags') Tags
+          textarea.form-control(name='tags', rows=2, cols=50, id='editAnswerTags')
+            = answer.tags
+          p.help-block Enter one or more tags each separated by a space. Put a dash between words that should be togehter like 'morale-check'.
+        button.btn.btn-default(type='submit') Update

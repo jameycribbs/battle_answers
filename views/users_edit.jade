@@ -2,16 +2,20 @@ extend layout
 
 block content
   div.starter-template
+    if (message)
+      p= message
     form(method='post')
-      input(name='_id', type='hidden', value=edit_user._id.toHexString())
-      div.form-group
-        label(for='editUsername') Username
-        input(type='text', name='username', id='editUsername', value=edit_user.username)
-      div.form-group
-        label(for='editPassword') Password
-        input(type='text', name='password', id='editPassword', value=edit_user.password)
-      div.form-group
-        label(for='editRoles') Roles
-        textarea.form-control(name='roles', rows=2, cols=50, id='editRoles')
-          = role_str
-      button(type='submit', class='btn btn-default') Update
+      fieldset
+        input(name='id', type='hidden', value=user.id)
+        div.form-group
+          label(for='editUsername') Username
+          input.form-control(type='text', name='username', id='editUsername', value=edit_user.username)
+        div.form-group
+          label(for='editPassword') Password
+          input.form-control(type='text', name='password', id='editPassword', value=edit_user.password)
+        div.form-group
+          label(for='editRoles') Roles
+          textarea.form-control(name='roles', rows=2, cols=50, id='editRoles')
+            = edit_user.roles
+          p.help-block Enter one or more roles each separated by a space. Available roles are: super rules-admin rules-minion.
+        button.btn.btn-default(type='submit') Update

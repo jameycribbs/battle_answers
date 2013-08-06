@@ -2,12 +2,19 @@ var Answer = require('../models/answer.js');
 
 exports.index = function(req, res) {
   Answer.find(function(error, recs) { 
-    res.render('answers_index', { title: 'Battle Answers', answers: recs });
+    res.render('answers_index', { 
+      user: req.user, 
+      title: 'Battle Answers', 
+      answers: recs 
+    });
   });
 };
 
 exports.new = function(req, res) {
-  res.render('answers_new', { title: 'New Answer' });
+  res.render('answers_new', { 
+    user: req.user,
+    title: 'New Answer' 
+  });
 };
 
 exports.create = function(req, res) {
@@ -27,8 +34,13 @@ exports.edit = function(req, res) {
 };
 
 exports.update = function(req, res) {
-  Answer.update({ _id: req.param('_id') }, { question: req.param('question'), answer: req.param('answer'), 
-   tags: req.param('tags').toLowerCase().split(' ') }, { multi: false }, function (err, numberAffected, raw) {
+  Answer.update({ _id: req.param('_id') }, 
+   { 
+    question: req.param('question'), 
+    answer: req.param('answer'), 
+    tags: req.param('tags') 
+   }, 
+   { multi: false }, function (err, numberAffected, raw) {
     res.redirect('/answers');
   });
 };

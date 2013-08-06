@@ -1,11 +1,11 @@
-var userProvider = require('../models/user').userProvider;
+var User = require('../models/user.js');
 
 exports.index = function(req, res) {
-  userProvider.findAll(function(error, recs) {
-    res.render('users_index', {
+  User.find(function(err, recs) { 
+    res.render('users_index', { 
       user: req.user,
-      title: 'Users',
-      users: recs
+      title: 'Users', 
+      users: recs 
     });
   });
 };
@@ -18,51 +18,30 @@ exports.new = function(req, res) {
 };
 
 exports.create = function(req, res) {
-  userProvider.save({
-    username: req.param('username'),
-    password: req.param('password'),
-    roles: req.param('roles').toLowerCase().split(' ')
-  }, function(error, docs) {
+  User.create({ username: req.param('username'), password: req.param('password'), roles: req.param('roles') }, function (err, small) {
     res.redirect('/users')
   });
 };
 
 exports.edit = function(req, res) {
-  userProvider.findById(req.param('_id'), function(error, rec) {
-    role_str = '';
-
-    if (rec.roles !== undefined) {
-      for (var i = 0; i < rec.roles.length;i++) {
-        role = rec.roles[i];
-        if (role_str.length == 0) {
-          role_str = role;
-        } else {
-          role_str = role_str + ' ' + role;
-        }
-      }
-    }
-
+  User.findOne({ _id: req.param('_id') }, function(error, rec) { 
     res.render('users_edit', {
       user: req.user,
       title: 'Edit User',
-      edit_user: rec,
-      role_str: role_str
+      edit_user: rec
     });
   });
 };
 
 exports.update = function(req, res) {
-  userProvider.update(req.param('_id'), {
-    username: req.param('username'),
-    password: req.param('password'),
-    roles: req.param('roles').toLowerCase().split(' ')
-  }, function(error, docs) {
-    res.redirect('/users')
+  User.update({ _id: req.param('_id') }, { username: req.param('username'), password: req.param('password'), roles: req.param('roles') },
+   { multi: false }, function (err, numberAffected, raw) {
+    res.redirect('/users');
   });
 };
 
 exports.delete = function(req, res) {
-  userProvider.delete(req.param('_id'), function(error, docs) {
+  User.remove({ _id: req.param('_id') }, function (err) {
     res.redirect('/users')
   });
 };

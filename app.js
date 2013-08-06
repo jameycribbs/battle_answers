@@ -7,8 +7,6 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , mongoose = require('mongoose')
-  , answerProvider = require('./models/answer').answerProvider
-  , userProvider = require('./models/user').userProvider
   , passport = require('passport')
   , flash = require('connect-flash')
   , LocalStrategy = require('passport-local').Strategy
@@ -18,13 +16,14 @@ var MongoStore = require('connect-mongo')(express);
 
 mongoose.connect('mongodb://localhost/node-mongo-battle-answer');
 
+var User = require('./models/user.js');
+
 passport.serializeUser(function(user, done) {
   done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
-  userProvider.findById(id, function (err, user) {
-//  passportHelper.findUserById(id, function (err, user) {
+  User.findOne({ _id: id }, function(err, user) { 
     done(err, user);
   });
 });
@@ -32,8 +31,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new LocalStrategy(
   function(username, password, done) {
     process.nextTick(function () {
-      userProvider.findByUsername(username, function(err, user) {
-//      passportHelper.findUserByUsername(username, function(err, user) {
+      User.findOne({ username: username }, function(err, user) { 
         if (err) { return done(err); }
         if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
         if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }

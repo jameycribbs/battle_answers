@@ -22,9 +22,9 @@ answerSchema.statics.findTags = function (queryStr, cb) {
 }
 
 answerSchema.statics.findAllTags = function(cb) {
-  this.find().toArray(function(error, results) {
-    if (error) {
-      cb(error);
+  this.find().toArray(function(err, results) {
+    if (err) {
+      cb(err);
     } else {
       allTags = new Array();
       for (rec in results) {
