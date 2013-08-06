@@ -13,7 +13,7 @@ block content
           div(id='collapse' + answer._id, class='accordion-body collapse' + collapseIn)
             div.accordion-inner
               p!= '<b>Answer: </b>' + answer.answer
-              p!= '<small><b>Tags: </b><em>' + answer.tags + '</em></small>'
+              p!= '<small><b>Tags: </b><em>' + answer.tags_str + '</em></small>'
               if (user)
                 if (user.roles.indexOf('rules-admin') != -1)
                   form(method='get', action='/answers/:id/edit') 

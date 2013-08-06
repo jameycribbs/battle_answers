@@ -16,6 +16,6 @@ block content
         div.form-group
           label(for='editAnswerTags') Tags
           textarea.form-control(name='tags', rows=2, cols=50, id='editAnswerTags')
-            = answer.tags
+            = answer.tags_str
           p.help-block Enter one or more tags each separated by a space. Put a dash between words that should be togehter like 'morale-check'.
         button.btn.btn-default(type='submit') Update

@@ -18,9 +18,16 @@ exports.new = function(req, res) {
 };
 
 exports.create = function(req, res) {
-  Answer.create({ question: req.param('question'), answer: req.param('answer'), tags: req.param('tags') }, function (err, small) {
-    res.redirect('/answers')
-  });
+  Answer.create(
+    { 
+      question: req.param('question'), 
+      answer: req.param('answer'), 
+      tags: req.param('tags') 
+    }, 
+    function (err, small) {
+      res.redirect('/answers') 
+    }
+  );
 };
 
 exports.edit = function(req, res) {

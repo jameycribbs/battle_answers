@@ -2,10 +2,6 @@ var mongoose = require('mongoose')
 , Schema = mongoose.Schema
 , ObjectId = Schema.ObjectId;
         
-var getTags = function (tags) {
-  return tags.join(' ')
-}
-
 var setTags = function (tags) {
   return tags.toLowerCase().split(' ')
 }
@@ -13,24 +9,24 @@ var setTags = function (tags) {
 var answerSchema = new Schema({
   answer: String,
   question: String,
-  tags: { type: [], get: getTags, set: setTags },
+  tags: { type: [], set: setTags },
   date: { type: Date, default: Date.now }
 }, { collection: 'battle-answers' });
 
+answerSchema.virtual('tags_str').get(function () {
+    return this.tags.join(' ');
+});
+
 answerSchema.statics.findTags = function (queryStr, cb) {
-  this.find({ tags: { $all: queryStr.split(' ') } }, cb);
+  this.find({ tags: { $all: queryStr.toLowerCase().split(' ') } }, cb);
 }
 
 answerSchema.statics.findAllTags = function(cb) {
-  this.find().toArray(function(err, results) {
+  this.distinct('tags', function(err, results) {
     if (err) {
       cb(err);
     } else {
-      allTags = new Array();
-      for (rec in results) {
-        allTags = allTags.concat(rec.tags);
-      }
-      cb(null, allTags);
+      cb(null, results.sort());
     }
   });
 }
