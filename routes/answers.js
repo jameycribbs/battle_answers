@@ -1,11 +1,26 @@
 var Answer = require('../models/answer.js');
 
 exports.index = function(req, res) {
-  Answer.find(function(error, recs) { 
-    res.render('answers_index', { 
-      user: req.user, 
-      title: 'Battle Answers', 
-      answers: recs 
+//  Answer.find(function(error, recs) { 
+
+  Answer.count(function(err, c) {
+    var pageNumArr = [];
+
+    var i = 0;
+  
+    while ((i * 10) < c) {
+      i++;
+      pageNumArr.push(i);
+    }
+
+    Answer.find({}, {}, { skip: req.query.skipRecs, limit: 10 }, function(err, recs) {
+      res.render('answers_index', { 
+        user: req.user, 
+        title: 'Battle Answers', 
+        pageNums: pageNumArr,
+        currentPageNum: req.query.skipRecs / 10 + 1,
+        answers: recs 
+      });
     });
   });
 };

@@ -26,7 +26,7 @@ html(lang='en')
             if (user)
               if (user.roles.indexOf('rules-admin') != -1)
                 li
-                  a(href='/answers')!= 'Maintain Answers'
+                  a(href='/answers?skipRecs=0')!= 'Maintain Answers'
               if (user.roles.indexOf('super') != -1)
                 li
                   a(href='/users')!= 'Maintain Users'

@@ -4,7 +4,7 @@ block content
   div.starter-template
     if (message)
       p= message
-    table.table.table-bordered
+    table.table.table-bordered.table-striped
       thead
         tr
           th Question
@@ -27,4 +27,23 @@ block content
                 input(name='_id', type='hidden', value=answer._id.toHexString()) 
                 input.btn.btn-small(value='Delete', type='submit')
 
-    a.btn.btn-primary(href='/answers/new') Add an Answer
+    ul.pagination
+      - if (currentPageNum > 1)
+        li
+          a(href='/answers?skipRecs=' + (currentPageNum - 2) * 10) &laquo
+
+      - each pageNum in pageNums
+        - if (currentPageNum == pageNum)
+          - listClass = 'active'
+        - else
+          - listClass = ''
+
+        li(class=listClass)
+          a(href='/answers?skipRecs=' + ((pageNum - 1) * 10))= pageNum
+
+      - if (currentPageNum < pageNums[pageNums.length - 1])
+        li
+          a(href='/answers?skipRecs=' + currentPageNum * 10) &raquo;
+
+    p
+      a.btn.btn-primary(href='/answers/new') Add an Answer
