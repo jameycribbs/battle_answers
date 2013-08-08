@@ -23,6 +23,8 @@ html(lang='en')
               a(href='/')!= 'Home'
             li
               a(href='/search/new')!= 'Search for Answers'
+            li
+              a(href='/submitted_answers/new')!= 'Submit an Answer'
             if (user)
               if (user.roles.indexOf('rules-admin') != -1)
                 li

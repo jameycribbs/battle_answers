@@ -2,6 +2,7 @@ var express = require('express')
   , frontPageRoutes = require('./routes/index')
   , authenticationRoutes = require('./routes/authentication')
   , answerRoutes = require('./routes/answers')
+  , submittedAnswerRoutes = require('./routes/submitted_answers')
   , searchRoutes = require('./routes/search')
   , userRoutes = require('./routes/users')
   , http = require('http')
@@ -93,6 +94,9 @@ app.post('/users/:id/delete', passportHelper.ensureAuthenticated, userRoutes.del
 
 app.get('/search/new', searchRoutes.new);
 app.post('/search/new', searchRoutes.create);
+
+app.get('/submitted_answers/new', submittedAnswerRoutes.new);
+app.post('/submitted_answers/new', submittedAnswerRoutes.create);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

@@ -1,0 +1,18 @@
+extend layout
+
+block content
+  div.starter-template
+    if (message)
+      p= message
+    form(method='post')
+      fieldset
+        div.form-group
+          label(for='editAnswerQuestion') Question
+          textarea.form-control(name='question', rows=5, cols=50, id='editAnswerQuestion')
+        div.form-group
+          label(for='editAnswerAnswer') Answer
+          textarea.form-control(name='answer', rows=5, cols=50, id='editAnswerAnswer')
+        div.form-group
+          label(for='editTriviaQuestion') Trivia Question (Required)
+          input.form-control(type='text', name='triviaQuestion', id='editTriviaQuestion') In ASL, what does MC stand for?
+        button.btn.btn-default(type='submit') Submit

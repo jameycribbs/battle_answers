@@ -10,11 +10,13 @@ var answerSchema = new Schema({
   answer: String,
   question: String,
   tags: { type: [], set: setTags },
-  date: { type: Date, default: Date.now }
+  date: { type: Date, default: Date.now },
+  state: String,
+  submitter_email: String
 }, { collection: 'battle-answers' });
 
 answerSchema.virtual('tags_str').get(function () {
-    return this.tags.join(' ');
+  return this.tags.join(' ');
 });
 
 answerSchema.statics.findTags = function (queryStr, cb) {
