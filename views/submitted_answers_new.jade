@@ -9,10 +9,12 @@ block content
         div.form-group
           label(for='editAnswerQuestion') Question
           textarea.form-control(name='question', rows=5, cols=50, id='editAnswerQuestion')
+            = edit_question
         div.form-group
           label(for='editAnswerAnswer') Answer
           textarea.form-control(name='answer', rows=5, cols=50, id='editAnswerAnswer')
+            = edit_answer
         div.form-group
-          label(for='editTriviaQuestion') Trivia Question (Required)
-          input.form-control(type='text', name='triviaQuestion', id='editTriviaQuestion') In ASL, what does MC stand for?
+          label(for='editTriviaQuestion') To prove you are human, please answer this question: <i>In ASL, what does 'MC' stand for?</i> (Required)
+          input.form-control(type='text', name='triviaQuestion', id='editTriviaQuestion')
         button.btn.btn-default(type='submit') Submit

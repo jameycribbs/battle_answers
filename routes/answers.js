@@ -1,8 +1,6 @@
 var Answer = require('../models/answer.js');
 
 exports.index = function(req, res) {
-//  Answer.find(function(error, recs) { 
-
   Answer.count(function(err, c) {
     var pageNumArr = [];
 
@@ -16,6 +14,7 @@ exports.index = function(req, res) {
     Answer.find({}, {}, { skip: req.query.skipRecs, limit: 10 }, function(err, recs) {
       res.render('answers_index', { 
         user: req.user, 
+        path: req.path,
         title: 'Battle Answers', 
         pageNums: pageNumArr,
         currentPageNum: req.query.skipRecs / 10 + 1,
@@ -28,6 +27,7 @@ exports.index = function(req, res) {
 exports.new = function(req, res) {
   res.render('answers_new', { 
     user: req.user,
+    path: req.path,
     title: 'New Answer' 
   });
 };
@@ -49,6 +49,7 @@ exports.edit = function(req, res) {
   Answer.findOne({ _id: req.param('_id') }, function(error, rec) { 
     res.render('answers_edit', {
       user: req.user,
+      path: req.path,
       title: 'Edit Answer',
       answer: rec
     });

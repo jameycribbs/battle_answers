@@ -19,18 +19,16 @@ html(lang='en')
         a.navbar-brand(href='/')!= 'Battle Answers'
         div(class='nav-collapse collapse')
           ul(class='nav navbar-nav')
-            li(class='active')
-              a(href='/')!= 'Home'
-            li
+            li(class= (path != undefined && path.substring(0, 7) === '/search' ? 'active' : ''))
               a(href='/search/new')!= 'Search for Answers'
-            li
+            li(class= (path != undefined && path.substring(0, 18) === '/submitted_answers' ? 'active' : ''))
               a(href='/submitted_answers/new')!= 'Submit an Answer'
             if (user)
               if (user.roles.indexOf('rules-admin') != -1)
-                li
+                li(class= (path != undefined && path.substring(0, 8) === '/answers' ? 'active' : ''))
                   a(href='/answers?skipRecs=0')!= 'Maintain Answers'
               if (user.roles.indexOf('super') != -1)
-                li
+                li(class= (path != undefined && path.substring(0, 6) === '/users' ? 'active' : ''))
                   a(href='/users')!= 'Maintain Users'
               li
                 a(href='/logout')!= 'Log Out, ' + user.username

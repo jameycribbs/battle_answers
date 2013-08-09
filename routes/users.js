@@ -4,6 +4,7 @@ exports.index = function(req, res) {
   User.find(function(err, recs) { 
     res.render('users_index', { 
       user: req.user,
+      path: req.path,
       title: 'Users', 
       users: recs 
     });
@@ -13,6 +14,7 @@ exports.index = function(req, res) {
 exports.new = function(req, res) {
   res.render('users_new', {
     user: req.user,
+    path: req.path,
     title: 'New User'
   });
 };
@@ -27,6 +29,7 @@ exports.edit = function(req, res) {
   User.findOne({ _id: req.param('_id') }, function(error, rec) { 
     res.render('users_edit', {
       user: req.user,
+      path: req.path,
       title: 'Edit User',
       edit_user: rec
     });

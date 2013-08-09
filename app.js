@@ -66,37 +66,33 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+// Routes
 app.get('/', frontPageRoutes.index);
-
 app.get('/account', passportHelper.ensureAuthenticated, function(req, res){
   res.render('account', { user: req.user });
 });
-
 app.get('/login', authenticationRoutes.login);
 app.post('/login', passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), function(req, res) {
   res.redirect('/');
 });
 app.get('/logout', authenticationRoutes.logout);
-
 app.get('/answers', passportHelper.ensureAuthenticated, answerRoutes.index);
 app.get('/answers/new', passportHelper.ensureAuthenticated, answerRoutes.new);
 app.post('/answers/new', passportHelper.ensureAuthenticated, answerRoutes.create);
 app.get('/answers/:id/edit', passportHelper.ensureAuthenticated, answerRoutes.edit);
 app.post('/answers/:id/edit', passportHelper.ensureAuthenticated, answerRoutes.update);
 app.post('/answers/:id/delete', passportHelper.ensureAuthenticated, answerRoutes.delete);
-
 app.get('/users', passportHelper.ensureAuthenticated, userRoutes.index);
 app.get('/users/new', passportHelper.ensureAuthenticated, userRoutes.new);
 app.post('/users/new', passportHelper.ensureAuthenticated, userRoutes.create);
 app.get('/users/:id/edit', passportHelper.ensureAuthenticated, userRoutes.edit);
 app.post('/users/:id/edit', passportHelper.ensureAuthenticated, userRoutes.update);
 app.post('/users/:id/delete', passportHelper.ensureAuthenticated, userRoutes.delete);
-
 app.get('/search/new', searchRoutes.new);
 app.post('/search/new', searchRoutes.create);
-
 app.get('/submitted_answers/new', submittedAnswerRoutes.new);
 app.post('/submitted_answers/new', submittedAnswerRoutes.create);
+// End Routes
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
